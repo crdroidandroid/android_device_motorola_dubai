@@ -4,7 +4,6 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-from extract_utils.misc import execute
 from extract_utils.extract import extract_fns_user_type
 from extract_utils.extract_star import extract_star_firmware
 from extract_utils.fixups_blob import (
@@ -44,20 +43,6 @@ blob_fixups: blob_fixups_user_type = {
 extract_fns: extract_fns_user_type = {
     r'(bootloader|radio)\.img': extract_star_firmware,
 }
-
-# Dolby fixups
-dolby_fixups = [
-    execute(f"{PATCHELF} --replace-needed \"libstagefright_foundation.so\" \"libstagefright_foundation-v33.so\" \"{DEVICE_BLOB_ROOT}/vendor/lib/libstagefright_soft_ddpdec.so\""),
-    execute(f"{PATCHELF} --replace-needed \"libstagefright_foundation.so\" \"libstagefright_foundation-v33.so\" \"{DEVICE_BLOB_ROOT}/vendor/lib/libstagefright_soft_ac4dec.so\""),
-    execute(f"{PATCHELF} --replace-needed \"libstagefright_foundation.so\" \"libstagefright_foundation-v33.so\" \"{DEVICE_BLOB_ROOT}/vendor/lib/libstagefrightdolby.so\""),
-    execute(f"{PATCHELF} --replace-needed \"libstagefright_foundation.so\" \"libstagefright_foundation-v33.so\" \"{DEVICE_BLOB_ROOT}/vendor/lib64/libstagefright_soft_ddpdec.so\""),
-    execute(f"{PATCHELF} --replace-needed \"libstagefright_foundation.so\" \"libstagefright_foundation-v33.so\" \"{DEVICE_BLOB_ROOT}/vendor/lib64/libdlbdsservice.so\""),
-    execute(f"{PATCHELF} --replace-needed \"libstagefright_foundation.so\" \"libstagefright_foundation-v33.so\" \"{DEVICE_BLOB_ROOT}/vendor/lib64/libstagefright_soft_ac4dec.so\""),
-    execute(f"{PATCHELF} --replace-needed \"libstagefright_foundation.so\" \"libstagefright_foundation-v33.so\" \"{DEVICE_BLOB_ROOT}/vendor/lib64/libstagefrightdolby.so\""),
-]
-
-# Add Dolby fixups to blob_fixups dictionary
-blob_fixups.update({f"dolby_fixup_{i}": fixup for i, fixup in enumerate(dolby_fixups)})
 
 module = ExtractUtilsModule(
     'dubai',

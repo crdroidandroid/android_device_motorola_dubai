@@ -59,14 +59,7 @@ PRODUCT_PACKAGES += \
     libgui_shim_vendor
 
 # Dolby
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/audio/dolby/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml
-
-TARGET_EXCLUDES_AUDIOFX := true
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/audio/media/media_codecs_dolby_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_dolby_audio.xml \
-    $(LOCAL_PATH)/configs/sysconfig/preinstalled-packages-platform-motodubai-product.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/preinstalled-packages-platform-motodubai-product.xml \
+$(call inherit-product, hardware/motorola/dolby/setup.mk)
 
 # Fingerprint
 PRODUCT_PACKAGES += \
