@@ -6,5 +6,6 @@
   {
     "repository":"crdroidandroid/proprietary_vendor_motorola_dubai",
     "target_path":"vendor/motorola/dubai"
+    "remote": "crdroid-gitlab"
   }
 ]
